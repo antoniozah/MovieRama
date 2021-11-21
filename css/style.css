@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+section {
+    padding: 0 15px;
+    width: 100%;
+    max-width: 1230px;
+    margin: 0 auto;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.results {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.movie {
+    padding: 0 10px;
+}
