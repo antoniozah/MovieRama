@@ -1,0 +1,38 @@
+{
+  "name": "movierama-assignment",
+  "version": "1.0.0",
+  "description": "A Movie Web App fetching data from TMDB API, with Infinity Scrolling, Search and extra Movie features",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "build:watch": "webpack --watch",
+    "serve": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antoniozah/MovieRama.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antoniozah/MovieRama/issues"
+  },
+  "homepage": "https://github.com/antoniozah/MovieRama#readme",
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.4",
+    "@babel/preset-env": "^7.16.4",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.5.1",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.64.2",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.5.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.16.3",
+    "path-browserify": "^1.0.1"
+  }
+}
