@@ -13,6 +13,7 @@ import {
   fixBodyHidden,
   loadSimilar,
 } from "./helpers/helpers.js";
+require("../public/style.css");
 
 const body = document.body;
 const search = document.querySelector(".search");
