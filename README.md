@@ -4,6 +4,8 @@ A Movie Web App fetching data from TMDB API, with Infinity Scrolling, Search and
 
 ## Active Link on Netlify
 
+[Live Demo](https://movierama-az.netlify.app/)
+
 ## How to setup
 
 1. npm run build ---> build the app
