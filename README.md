@@ -6,6 +6,6 @@ A Movie Web App fetching data from TMDB API, with Infinity Scrolling, Search and
 
 ## How to setup
 
-npm run build ---> build the app
-npm run build:watch ---> build and watch for changes
-npm run serve ---> open app to local server
+1. npm run build ---> build the app
+2. npm run build:watch ---> build and watch for changes
+3. npm run serve ---> open app to local server
