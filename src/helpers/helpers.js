@@ -12,26 +12,55 @@ const movieRating = (rating) => {
 
 const fixBodyOpened = (body) => {
   body.classList.add("opened");
-  // body.style.position = "fixed";
-  // body.style.top = `-${window.scrollY}px`;
 };
 
 const badgeColor = (rating) => {
-  if(rating >= 8 ) {
-    return 'green';
-  } else if (rating >= 5 ) {
-    return 'orange';
+  if (rating >= 8) {
+    return "green";
+  } else if (rating >= 5) {
+    return "orange";
   } else {
-    return 'red';
+    return "red";
   }
-}
+};
 
 const fixBodyHidden = (body) => {
   body.classList.remove("opened");
-  // const scrollY = body.style.top;
-  // body.style.position = "";
-  // body.style.top = "";
-  // window.scrollTo(0, parseInt(scrollY || "0") * -1);
 };
 
-export { truncate, getYear, movieRating, fixBodyOpened, fixBodyHidden, badgeColor };
+const loadSimilar = (visible, similarNumber) => {
+  const seeMore = document.querySelector("[data-show-more");
+  const similarsList = document.querySelectorAll(
+    ".similars-wrapper > .similar"
+  );
+
+  Array.from(similarsList)
+    .slice(0, 4)
+    .forEach((similar, index) => {
+      similar.classList.add("show");
+    });
+
+  if (typeof seeMore !== undefined && seeMore !== null) {
+    seeMore.addEventListener("click", () => {
+      similarsList.forEach((item) => {
+        if (!item.classList.contains("show")) {
+          item.classList.add("show");
+          seeMore.textContent = "Show less";
+        } else {
+          item.classList.remove("show");
+          seeMore.textContent = "Show more";
+        }
+      });
+    });
+  }
+};
+
+export {
+  truncate,
+  getYear,
+  movieRating,
+  fixBodyOpened,
+  fixBodyHidden,
+  badgeColor,
+  loadSimilar,
+};

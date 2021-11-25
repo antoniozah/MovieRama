@@ -1,10 +1,21 @@
-import VideoTrailer from './VideoTrailer';
-import { badgeColor, movieRating } from '../helpers/helpers';
-import Reviews from './Reviews';
+import { badgeColor, movieRating } from "../helpers/helpers";
+import VideoTrailer from "./VideoTrailer";
+import Reviews from "./Reviews";
+import SimilarMovies from "./SimilarMovies";
 
 const Modal = (params) => {
-  const { vote_average, img_path, backdrop_path, title, overview, trailer, movieReviews} = params;
-  console.log(movieReviews);
+  const {
+    vote_average,
+    img_path,
+    backdrop_path,
+    title,
+    overview,
+    trailer,
+    movieReviews,
+    movieSimilars,
+    visible,
+  } = params;
+
   return `<div class="modal-wrapper">
   <div class="close-button" data-close-button>
     <span></span>
@@ -16,20 +27,31 @@ const Modal = (params) => {
     </figure>
     <div class="modal-info">
       <div class="modal-header">
-        <span class="${badgeColor(vote_average)}">${movieRating(vote_average)}</span>
-        <h2 class="modal-title">${title}</h2>
+        <span class="${badgeColor(vote_average)}">${movieRating(
+    vote_average
+  )}</span>
+        <div>
+          <h2 class="modal-title">${title}</h2>
+          <p class="modal-overview">${overview}</p>
+        </div>
       </div>
-      <p class="modal-overview">${overview}</p>
-      ${VideoTrailer(trailer)}
+      <div class="trailer">
+        <h3>Video Trailer</h3>
+        ${VideoTrailer(trailer)}
+      </div>
       <div class="reviews">
         <h3>Reviews</h3>
         <div class="reviews-wrapper">
           ${Reviews(movieReviews)}
         </div>
       </div>
+      <div class="similars">
+          <h3>Similar Movies</h3>
+          ${SimilarMovies(movieSimilars, visible)}
+      </div>
     </div>
   </div>
 </div>`;
-}
+};
 
 export default Modal;
