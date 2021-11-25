@@ -142,7 +142,7 @@ const showLoading = () => {
 
     setTimeout(() => {
       page++;
-      console.log(page);
+      // console.log(page);
       searchIsActive
         ? showMovies(searchUrl, page, query)
         : showMovies(inTheaters, page, query);
@@ -158,7 +158,10 @@ window.addEventListener("load", (event) => {
 window.addEventListener("scroll", () => {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-  if (scrollTop + clientHeight >= scrollHeight) {
+  if (
+    scrollTop + clientHeight >= scrollHeight ||
+    window.pageYOffset + clientHeight >= scrollHeight
+  ) {
     showLoading();
   }
 });
