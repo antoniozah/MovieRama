@@ -318,6 +318,10 @@ main {
   pointer-events: all;
 }
 
+.overlay-content {
+  width: 100%;
+}
+
 .modal {
   position: relative;
   background-color: var(--blue-color);
