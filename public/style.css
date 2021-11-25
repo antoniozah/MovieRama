@@ -561,6 +561,22 @@ span.red {
     max-width: 100%;
     margin-top: 15px;
   }
+
+  .modal-header {
+    flex-direction: column;
+  }
+
+  .review-wrapper {
+    flex-direction: column;
+  }
+
+  .review-wrapper > span {
+    margin-bottom: 5px;
+  }
+
+  .review {
+    padding: 5px 10px;
+  }
 }
 
 @keyframes lds-ring {
