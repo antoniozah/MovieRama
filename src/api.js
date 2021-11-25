@@ -5,4 +5,4 @@ const genresUrl = `${api_url}/genre/movie/list?api_key=${api_key}`;
 const inTheaters = `${api_url}/movie/now_playing?api_key=${api_key}`;
 const searchUrl = `${api_url}/search/movie?api_key=${api_key}`;
 
-export { img_path, inTheaters, genresUrl, searchUrl };
+export { api_url, api_key, img_path, inTheaters, genresUrl, searchUrl };

@@ -1,6 +1,9 @@
 :root {
   --blue-color: rgb(13, 33, 97);
   --lightblue-color: rgb(13, 47, 97);
+  --success: #22bb33;
+  --danger: #bb2124;
+  --warning: #f0ad4e;
 }
 
 * {
@@ -17,10 +20,21 @@ body {
   font-weight: 300;
 }
 
+body.opened {
+  overflow-y: hidden;
+  right: 0;
+  left: 0;
+  width: 100%;
+}
+
 img {
   max-width: 100%;
   height: auto;
   min-height: 100%;
+}
+
+blockquote {
+  padding: 5px 0;
 }
 
 ::-webkit-input-placeholder {
@@ -171,6 +185,234 @@ main {
 .loader div:nth-child(3) {
   left: 56px;
   animation-delay: 0;
+}
+
+.overlay {
+  position: fixed; /* Sit on top of the page content */
+  opacity: 0;
+  pointer-events: none;
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 5px;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  z-index: 9; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+.overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  position: relative;
+  background-color: var(--blue-color);
+  color: #fff;
+  width: 100%;
+  max-width: 600px;
+  height: 90vh;
+}
+
+.modal-wrapper {
+  height: 100%;
+  /* overflow-y: scroll; */
+  padding: 40px 0 10px;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+}
+
+.close-button:hover {
+  opacity: 1;
+}
+.close-button span {
+  position: absolute;
+  content: " ";
+  left: 50%;
+  height: 20px;
+  width: 3px;
+  background-color: #fff;
+}
+.close-button span:nth-child(1) {
+  transform: translateX(-50%) rotate(45deg);
+}
+.close-button span:nth-child(2) {
+  transform: translateX(-50%) rotate(-45deg);
+}
+
+.modal-content {
+  height: 100%;
+  padding: 0 20px;
+  overflow: scroll;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.modal-header > span {
+  margin-right: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+
+.modal-header > span.green {
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.modal-header > span.orange {
+  border-color: var(--warning);
+  color: var(--warning);
+}
+
+.modal-header > span.red {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.modal-overview {
+  margin: 10px 0;
+}
+
+.trailer {
+  margin: 15px 0 0;
+}
+
+.trailer-wrapper {
+  position: relative;
+  margin-top: 15px;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+}
+.trailer-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media only screen and (max-width: 767.98px) {
+  body {
+  }
+}
+
+.loader-ring {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  opacity: 0;
+
+  transform: translate(-50%, -50%);
+}
+.loader-ring.active {
+  opacity: 1;
+}
+
+.loader-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
+}
+.loader-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.loader-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.loader-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+.reviews {
+  margin: 10px 0;
+}
+
+.reviews h3 {
+  margin-bottom: 10px;
+}
+
+.review:not(:last-of-type) {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.review:not(:last-of-type):after {
+  position: absolute;
+  content: "";
+  width: 100px;
+  height: 2px;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.review-avatar {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin-right: 6px;
+  overflow: hidden;
+  border: 1px solid #fff;
+  border-radius: 50%;
+}
+
+.review-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.review-author {
+  margin-right: 6px;
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes loader {

@@ -1,10 +1,29 @@
-import { img_path, inTheaters, genresUrl, searchUrl } from "./api.js";
-import { truncate, getYear, movieRating } from "./helpers/helpers.js";
+import {
+  api_url,
+  img_path,
+  inTheaters,
+  genresUrl,
+  searchUrl,
+  api_key,
+} from "./api.js";
+import Modal from "./components/Modal.js";
+import {
+  truncate,
+  getYear,
+  movieRating,
+  movieReviewsNumber,
+  fixBodyOpened,
+  fixBodyHidden,
+} from "./helpers/helpers.js";
 // import "../css/style.css";
 
+const body = document.body;
 const search = document.querySelector(".search");
 const results = document.querySelector(".results");
 const loader = document.querySelector(".loader");
+const overlay = document.querySelector(".overlay");
+const overlayContent = document.querySelector(".overlay-content");
+const loaderRing = document.querySelector('.loader-ring');
 
 let page = 1;
 let searchIsActive = false;
@@ -13,7 +32,7 @@ let genresList = [];
 let typingTimer;
 let typeInterval = 500;
 
-const getMovies = async (url) => {
+const getMovies = async (url, id) => {
   const response = await fetch(url);
   const data = await response.json();
   // console.log(data.results);
@@ -53,12 +72,13 @@ search.addEventListener("keyup", () => {
 
 const showMovies = async (url, page, query) => {
   const chunk = `${url}&query=${query}&page=${page}`;
-  const movies = await getMovies(chunk);
+  const movies = await getMovies(chunk, null, null);
 
   console.log(movies);
 
-  movies.forEach((movie, index) => {
+  movies.forEach((movie) => {
     const {
+      id,
       title,
       poster_path,
       backdrop_path,
@@ -70,6 +90,8 @@ const showMovies = async (url, page, query) => {
 
     const movieElement = document.createElement("article");
     movieElement.classList.add("movie");
+    movieElement.setAttribute("id", id);
+
     let poster_image = null;
     if (poster_path) {
       poster_image = `<img src="${img_path + poster_path}" alt="${title}" />`;
@@ -77,7 +99,7 @@ const showMovies = async (url, page, query) => {
     movieElement.innerHTML = `<figure class="movie-poster ${
       !poster_path ? "no-image" : ""
     }">
-      ${poster_path ? poster_image : '<div class="no-image">No image</div>'}
+      ${poster_path ? poster_image : "<div>No image</div>"}
     </figure>
         <div class="movie-info">
             <span class="movie-release_year">
@@ -96,7 +118,66 @@ const showMovies = async (url, page, query) => {
         </div>`;
 
     results.appendChild(movieElement);
+
+    movieElement.addEventListener("click", () => {
+      const movieId = movieElement.getAttribute("id");
+      overlay.classList.add("show");
+      fixBodyOpened(body);
+      modalShow(movie);
+      loaderRing.classList.add('active');
+    });
   });
+};
+
+const modalClose = () => {
+  overlay.classList.remove("show");
+  fixBodyHidden(body);
+  overlayContent.innerHTML = "";
+};
+
+const modalShow = async (movie) => {
+  const { id, title, backdrop_path, overview, vote_average } = movie;
+  const trailerUrl = `${api_url}/movie/${id}/videos?api_key=${api_key}`;
+  const reviewsUrl = `${api_url}/movie/${id}/reviews?api_key=${api_key}`;
+  const similarUrl = `${api_url}/movie/${id}/similar?api_key=${api_key}`;
+  const modal = document.createElement('div');
+  modal.classList.add('modal');
+
+  const movieVideos = await getMovies(trailerUrl);
+  const movieReviews = await getMovies(reviewsUrl);
+  const movieSimilar = await getMovies(similarUrl);
+  // console.log(movieVideos, 'videooos');
+  let trailer ='';
+  let reviews = '';
+  if (movieVideos.length > 0) {
+    trailer = movieVideos.filter((video) =>
+    video.name.toLowerCase().includes("trailer")
+  );
+  }
+
+  console.log(movieReviews);
+  // if (reviews.length > 0) {
+  //   reviews = movieReviews.slice(0,2).map(review => review);
+  // }
+  
+  console.log("similar", movieSimilar);
+  const params = {
+    title, 
+    vote_average,
+    trailer,
+    img_path,
+    backdrop_path,
+    overview,
+    movieReviews,
+
+  }
+  setTimeout(() => {
+    modal.innerHTML = Modal(params);
+    loaderRing.classList.remove('active');
+    overlayContent.appendChild(modal);
+    const closeButton = document.querySelector("[data-close-button]");
+      closeButton.addEventListener("click", modalClose);
+  }, 500);
 };
 
 const showLoading = () => {
