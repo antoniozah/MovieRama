@@ -16,15 +16,23 @@ const Modal = (params) => {
     visible,
   } = params;
 
+  const modalHeaderImage = () => {
+    if(backdrop_path !== null) {
+      return `<figure className="modal-image">
+        <img src=${img_path + backdrop_path} alt=${title} />
+      </figure>`;
+    } else {
+      return `<div style="font-size: 20px; font-style: italic;">NO IMAGE TO SHOW!</div>`;
+    }
+  }
+
   return `<div class="modal-wrapper">
   <div class="close-button" data-close-button>
     <span></span>
     <span></span>
   </div>
   <div class="modal-content">
-    <figure className="modal-image">
-      <img src=${img_path + backdrop_path} alt=${title} />
-    </figure>
+    ${modalHeaderImage()}
     <div class="modal-info">
       <div class="modal-header">
         <span class="${badgeColor(vote_average)}">${movieRating(

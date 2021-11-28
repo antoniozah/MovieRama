@@ -10,14 +10,18 @@ const Movie = (movie, getGenreName, movieElement) => {
     genre_ids,
   } = movie;
 
-  let poster_image = null;
-  if (poster_path) {
-    poster_image = `<img src="${img_path + poster_path}" alt="${title}" />`;
+  const movieImage = () => {
+    if(poster_path !== null) {
+      return `<img src="${img_path + poster_path}" alt="${title}" />`;
+    } else {
+      return '<div>No image</div>';
+    }
   }
+
   movieElement.innerHTML = `<figure class="movie-poster ${
     !poster_path ? "no-image" : ""
   }">
-    ${poster_path ? poster_image : "<div>No image</div>"}
+    ${movieImage()}
   </figure>
       <div class="movie-info">
           <span class="movie-release_year">
