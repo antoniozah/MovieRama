@@ -158,10 +158,7 @@ window.addEventListener("load", (event) => {
 window.addEventListener("scroll", () => {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-  if (
-    scrollTop + clientHeight >= scrollHeight ||
-    window.pageYOffset + clientHeight >= scrollHeight
-  ) {
+  if (scrollTop + innerHeight >= scrollHeight) {
     showLoading();
   }
 });

@@ -42,13 +42,16 @@ const loadSimilar = (visible, similarNumber) => {
 
   if (typeof seeMore !== undefined && seeMore !== null) {
     seeMore.addEventListener("click", () => {
-      similarsList.forEach((item) => {
-        if (!item.classList.contains("show")) {
-          item.classList.add("show");
-          seeMore.textContent = "Show less";
-        } else {
-          item.classList.remove("show");
-          seeMore.textContent = "Show more";
+      similarsList.forEach((item, index) => {
+        if (index > 3) {
+          if (!item.classList.contains("show")) {
+            item.cla;
+            item.classList.add("show");
+            seeMore.textContent = "Show less";
+          } else {
+            item.classList.remove("show");
+            seeMore.textContent = "Show more";
+          }
         }
       });
     });
